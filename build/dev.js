@@ -9,7 +9,7 @@ webConfig.entry = {
     './src/render.js',
     './src/app.js',
     'webpack/hot/dev-server',
-    'webpack-dev-server/client/?http://0.0.0.0:8080'
+    'webpack-dev-server/client/?http://0.0.0.0:8005'
   ]
 }
 webConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
@@ -20,9 +20,9 @@ weexConfig.entry = {
 }
 
 new devServer(webpack([webConfig, weexConfig]), {
-  port: 8080,
+  port: 8005,
   host: '0.0.0.0',
   hot: true,
   stats: { colors: true }
-}).listen('8080', '0.0.0.0')
-console.log('Project is running at http://0.0.0.0:8080/')
+}).listen('8005', '0.0.0.0')
+console.log('Project is running at http://0.0.0.0:8005/')

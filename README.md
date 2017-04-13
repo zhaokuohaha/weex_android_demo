@@ -17,12 +17,12 @@ weexpack run ios
 
 # dev
 npm run dev
-open http://0.0.0.0:8080/
+open http://0.0.0.0:8005/
 ```
 
 ## 显示二维码
 ```bash
-open http://0.0.0.0:8080/qrcode.html
+open http://0.0.0.0:8005/qrcode.html
 ```
 
 ## 使用说明
