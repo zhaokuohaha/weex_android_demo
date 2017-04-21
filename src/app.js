@@ -1,8 +1,8 @@
-import Vue from 'vue'
+import App from './App.vue'
 import Router from 'vue-router'
+import axios from 'axios'
 
-import App from './index.vue'
-
+axios.defaults.baseURL='http://zhiliao.server.zhaokuo.cc';
 Vue.use(Router)
 
 const routes = [
@@ -18,12 +18,16 @@ const routes = [
     path:'/joingroup',
     component:require('./pages/JoinGroup.vue')
   },
-]
-
+  {
+    path:'/login',
+    component:require('./pages/Login.vue')
+  }
+];
 
 var router = new Router({routes});
-new Vue({
+
+export default new Vue({
   el: '#root',
   router,
   render: h => h(App)
-})
+});
