@@ -1,5 +1,5 @@
 {
-    "AppId": "com.alibaba.weex",
+    "AppId": "zhiliao",
     "AppName": "ZhiLiao",
     "SplashText": "知了",
     "WeexBundle": "http://zhiliao.weex.zhaokuo.cc/app.weex.js"

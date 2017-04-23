@@ -2,7 +2,7 @@ import App from './App.vue'
 import Router from 'vue-router'
 import axios from 'axios'
 
-axios.defaults.baseURL='http://zhiliao.server.zhaokuo.cc';
+
 Vue.use(Router)
 
 const routes = [

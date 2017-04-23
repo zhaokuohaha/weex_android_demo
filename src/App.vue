@@ -37,7 +37,7 @@
     methods: {
       update: function (e) {
         this.target = 'Weex'
-        console.log('target:', this.target)
+        // console.log('target:', this.target)
       }
     }
   }
@@ -53,11 +53,10 @@
     flex-direction: row;
     width:750px;
     height:120px;
-    background-color: #90a4ae;
+    background-color: #65D4FA;
   }
 
   .footer-item{
-    display: inline-block;
     padding-top:10px;
     padding-bottom:10px;
     justify-content:center;

@@ -2,8 +2,8 @@
     <div>
         <div v-if="!islogin" class="text-center">
             <text>用户登录</text>
-            <input type="text" v-model="account.email" /> <br />
-            <input type="password" v-model="account.password" />
+            <input class="form-input" type="text" v-model="account.email" /> <br />
+            <input class="form-input" type="password" v-model="account.password" />
             <button class="btn btn-primary text-center" @click="login()">
                 <text class="text-center">登录</text>
             </button>
@@ -32,7 +32,7 @@
         methods:{
             login(){
                 let tvm = this;
-                axios.post('/api/Account/login',tvm.account).then(function(res){
+                axios.post('http://zhiliao.server.zhaokuo.cc/api/Account/login',tvm.account).then(function(res){
                     console.log(res);
                     tvm.userinfo = res.data;
                     axios.defaults.headers.common['Authorization'] = "Bearer "+res.data.access_token;
@@ -46,14 +46,14 @@
 
 <style>
     .btn{
-        overflow: hidden;
         border-radius: 2px;
         height: 64px;
         min-width: 128px;
         border: none;
         margin-top: 20px;
         outline: 0;
-        box-shadow: 0 1px 6px rgba(0,0,0,.117647), 0 1px 4px rgba(0,0,0,.117647);
+        justify-content:center;
+        align-items: center;        
     }
 
     .btn-default{
@@ -67,5 +67,13 @@
     .text-center{
         align-items: center;
         text-align: center;
+    }
+    .form-input{
+        display: block;
+        border-radius: 10px;
+        height: 64px;
+        border-color: #81D4FA;
+        margin-bottom: 10px;
+        margin-top: 20px;
     }
 </style>
