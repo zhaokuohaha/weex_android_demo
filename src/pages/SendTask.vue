@@ -1,6 +1,6 @@
 <template>
     <div>
-        <text>发送通知 - 远程测试</text>
+        <text>发送通知 - 测试</text>
         <image style="width:100px; height:100px;" :src="user.imagePath"></image>
         <text>{{user.id}}</text>
         <text>{{user.nickname}}</text>
@@ -11,7 +11,7 @@
     </div>
 </template>
 <script>
-    import axios from 'axios'
+    var stream = weex.requireModule('stream')
     export default {
         data(){
             return{
@@ -21,8 +21,11 @@
         methods:{
             sendTask(){
                 let tvm = this;
-                axios.get('http://zhiliao.server.zhaokuo.cc/api/Values')
-                .then(function(res){
+                stream.fetch({
+                    url:'http://zhiliao.server.zhaokuo.cc/api/Values',
+                    method:'GET',
+                    type:'json',
+                },function(res){
                     tvm.user = res.data;
                 });
             }

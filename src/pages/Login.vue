@@ -8,7 +8,7 @@
                 <text class="text-center">登录</text>
             </button>
         </div>
-        <div v-else style="justify-content:center;">
+        <div  v-else style="justify-content:center;">
             <image style="width:100px; height:100px;" :src="userinfo.avatar"></image>
             <text>{{userinfo.nickname}}</text>
             <text>{{userinfo.summary}}</text>
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    import axios from 'axios'
+    var stream = weex.requireModule('stream')
     export default {
         data() {
             return {
@@ -32,10 +32,18 @@
         methods:{
             login(){
                 let tvm = this;
-                axios.post('http://zhiliao.server.zhaokuo.cc/api/Account/login',tvm.account).then(function(res){
-                    console.log(res);
+                
+                stream.fetch({
+                    method:'POST',
+                    headers :{
+                        'Content-Type':'application/json'
+                    },
+                    type:'json',
+                    body:JSON.stringify(tvm.account),
+                    url:'http://zhiliao.server.zhaokuo.cc/api/Account/login'
+                },function(res){
                     tvm.userinfo = res.data;
-                    axios.defaults.headers.common['Authorization'] = "Bearer "+res.data.access_token;
+                    // axios.defaults.headers.common['Authorization'] = "Bearer "+res.data.access_token;
                     tvm.islogin = true;
                 });
             }

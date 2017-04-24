@@ -1,33 +1,26 @@
 <template>
-  <div class="wrapper" @click="update">
+  <div class="wrapper">
     <image :src="logoUrl" class="logo"></image>
     <router-view></router-view>
     <div class="footer">
-        <div class="footer-item">
-          <router-link to='/'>
+        <div class="footer-item" @click="jump('')">
             <text class="text-center">接收通知</text>
-          </router-link>
         </div>
-        <div class="footer-item">
-          <router-link to='/sendtask'>
+        <div class="footer-item" @click="jump('sendtask')">
             <text class="text-center">发送通知</text>
-          </router-link>
         </div>
-        <div class="footer-item">
-          <router-link to="/joingroup">
+        <div class="footer-item" @click="jump('joingroup')">
             <text class="text-center">加入群</text>
-          </router-link>
         </div>
-        <div class="footer-item">
-          <router-link to="/login">
+        <div class="footer-item" @click="jump('login')">
             <text class="text-center">登录</text>
-          </router-link>
         </div>
     </div>
   </div>
 </template>
 
 <script>
+  // import router from 'vue-router'
   export default {
     data(){
       return{
@@ -35,10 +28,9 @@
       }
     },
     methods: {
-      update: function (e) {
-        this.target = 'Weex'
-        // console.log('target:', this.target)
-      }
+        jump(path){
+          this.$router.push('/'+path); 
+        }
     }
   }
 </script>
