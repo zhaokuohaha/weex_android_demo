@@ -1,23 +1,28 @@
 <template>
-    <div>
-        <div v-if="!islogin" class="text-center">
-            <text>用户登录</text>
-            <input class="form-input" type="text" v-model="account.email" /> <br />
-            <input class="form-input" type="password" v-model="account.password" />
-            <button class="btn btn-primary text-center" @click="login()">
-                <text class="text-center">登录</text>
+    <div style="justify-content:center;">
+        <div style="align-items:center;justify-content:center;margin-bottom:20px;">
+            <image style="width:200px; height:200px; flex:1;" :src="userinfo.avatar"></image>
+        </div>
+        <div v-if="!islogin" class="lg-center-wrapper">
+            <text class="lg-text-title">用户登录</text>
+            <input class="lg-form-input" type="text" v-model="account.email" /> <br />
+            <input class="lg-form-input" type="password" v-model="account.password" />
+            <button class="lg-btn lg-btn-primary lg-text-center" @click="login()">
+                <text class="lg-text-primary">登录</text>
             </button>
         </div>
-        <div  v-else style="justify-content:center;">
-            <image style="width:100px; height:100px;" :src="userinfo.avatar"></image>
-            <text>{{userinfo.nickname}}</text>
-            <text>{{userinfo.summary}}</text>
+        <div  v-else style="align-items:center;">
+            <text class="lg-text-title">{{userinfo.nickname}}</text>
+            <text class="lg-text-title">{{userinfo.summary}}</text>
         </div>
     </div>
 </template>
 
 <script>
     var stream = weex.requireModule('stream')
+    var storage = weex.requireModule('storage')
+    var modal = weex.requireModule('modal')
+
     export default {
         data() {
             return {
@@ -26,7 +31,9 @@
                     password: '123qwe'
                 },
                 islogin:false,
-                userinfo:{},
+                userinfo:{
+                    avatar:'http://zhiliao-10068775.cos.myqcloud.com/favicon.ico'
+                },
             }
         },
         methods:{
@@ -42,9 +49,13 @@
                     body:JSON.stringify(tvm.account),
                     url:'http://zhiliao.server.zhaokuo.cc/api/Account/login'
                 },function(res){
-                    tvm.userinfo = res.data;
-                    // axios.defaults.headers.common['Authorization'] = "Bearer "+res.data.access_token;
-                    tvm.islogin = true;
+                    tvm.userinfo = res.data
+                    storage.setItem('token','Bearer '+res.data.access_token);
+                    tvm.islogin = true
+                    modal.toast({
+                        message:'登录成功',
+                        duration:3
+                    });
                 });
             }
         }
@@ -53,7 +64,7 @@
 </script>
 
 <style>
-    .btn{
+    .lg-btn{
         border-radius: 2px;
         height: 64px;
         min-width: 128px;
@@ -61,27 +72,46 @@
         margin-top: 20px;
         outline: 0;
         justify-content:center;
-        align-items: center;        
+        align-items: center;    
     }
 
-    .btn-default{
+    .lg-btn-default{
         background-color: #fff;
         color: rgba(0,0,0,.87);
     }
-    .btn-primary{
+    .lg-btn-primary{
         background-color: #81D4FA;
         color:#fff;
     }
-    .text-center{
+    .lg-center-wrapper{
         align-items: center;
+        justify-content: center;
+    }
+    .lg-form-input{
+        font-size: 30px;
+        width: 600px;
+        margin-top: 5px;
+        margin-bottom: 20px;
+        margin-left: 50px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+        color: #666666;
+        border-width: 2px;
+        border-style: solid;
+        border-color: #41B883;
+        border-radius: 5px;
+    }
+
+    .lg-text-primary{
+        font-size: 35px;
         text-align: center;
     }
-    .form-input{
-        display: block;
-        border-radius: 10px;
-        height: 64px;
-        border-color: #81D4FA;
-        margin-bottom: 10px;
-        margin-top: 20px;
+
+    .lg-text-title{
+        font-size: 50px;
+        align-items: center;
+        justify-content: center;
     }
 </style>

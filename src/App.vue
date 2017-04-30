@@ -1,7 +1,8 @@
 <template>
   <div class="wrapper">
-    <image :src="logoUrl" class="logo"></image>
+    
     <router-view></router-view>
+    <div style="height:128px;"></div>
     <div class="footer">
         <div class="footer-item" @click="jump('')">
             <text class="text-center">接收通知</text>
@@ -38,7 +39,6 @@
 <style>
   .wrapper { align-items: center; padding-top: 120px; }
   .title { font-size: 48px; }
-  .logo { width: 200px; height: 200px; }
   .footer{
     position: fixed;
     bottom: 0;
