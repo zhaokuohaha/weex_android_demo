@@ -1,7 +1,7 @@
 <template>
     <div style="justify-content:center;">
-        <div style="align-items:center;justify-content:center;margin-bottom:20px;">
-            <image style="width:200px; height:200px; flex:1;" :src="userinfo.avatar"></image>
+        <div class="lg-avater-wrapper">
+            <image style="width:200px; height:200px;" :src="userinfo.avatar"></image>
         </div>
         <div v-if="!islogin" class="lg-center-wrapper">
             <text class="lg-text-title">用户登录</text>
@@ -32,7 +32,7 @@
                 },
                 islogin:false,
                 userinfo:{
-                    avatar:'http://zhiliao-10068775.cos.myqcloud.com/favicon.ico'
+                    avatar:'http://zhiliao.vue.yyonghua.com/static/img/zhiliao-green.6b1aecf.png'
                 },
             }
         },
@@ -64,6 +64,12 @@
 </script>
 
 <style>
+    .lg-avater-wrapper{
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 120px;
+        width:750px;
+    }
     .lg-btn{
         border-radius: 2px;
         height: 64px;
@@ -113,5 +119,7 @@
         font-size: 50px;
         align-items: center;
         justify-content: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 </style>

@@ -37,7 +37,7 @@
 </script>
 
 <style>
-  .wrapper { align-items: center; padding-top: 120px; }
+  .wrapper { align-items: stretch; }
   .title { font-size: 48px; }
   .footer{
     position: fixed;
