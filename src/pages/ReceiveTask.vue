@@ -112,6 +112,7 @@
 .text-title-wrapper{
     justify-content: center;
     margin-bottom: 50px;
+    margin-top: 50px;
 }
 .text-title{
     flex:1;

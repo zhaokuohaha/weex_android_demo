@@ -47,24 +47,24 @@
                             <text>{{group}}</text>
                         </div>
                     </div>
-                    <div class="st-list-item st-unselected" @click="addGroup(group,index)" v-for="(group,index) in mygroups" :key="index">
+                    <span class="st-list-item st-unselected" @click="addGroup(group,index)" v-for="(group,index) in mygroups" :key="index">
                         <text>{{group.name}}</text>
-                    </div>
+                    </span>
                 </div>
             </div>
-
-            <div class="st-form-row">
-                <div @click="toggleSms" :class="['st-list-item',task.issms==true ? 'st-selected' : 'st-unselected']">
-                    <text>使用短信发送</text>
-                </div>
-                <div @click="toggleEmail" :class="['st-list-item',task.isemail==true ? 'st-selected' : 'st-unselected']">
-                    <text>使用邮件发送</text>
-                </div>
+            
+            <div style="margin-top:10px;margin-left:-50px; margin-bottom:20px;width:650px;border-top-width:2px;border-top-color:#aaa;"></div>
+            <div class="st-switch-wrapper">
+                <text>使用短信发送</text>
+                <switch @change="toggleSms"></switch>
             </div>
-
-            <button class="st-btn-send" @click="sendTask">
-                <text style="font-size:40px;text-align:center;">发送</text>
-            </button>
+            <div class="st-switch-wrapper">
+                <text>使用邮件发送</text>
+                <switch @change="toggleEmail"></switch>
+            </div>
+            <image src="http://zhiliao-10068775.cossh.myqcloud.com/send.png"
+            style="width:128px; height:128px;"
+            @click="sendTask"></image>
         </div>
     </div>
 </template>
@@ -132,11 +132,11 @@
                     }
                 })
             },
-            toggleSms(){
-                this.task.issms = ! this.task.issms;
+            toggleSms(e){
+                this.task.issms = e.value;
             },
-            toggleEmail(){
-                this.task.isemail = ! this.task.isemail;
+            toggleEmail(e){
+                this.task.isemail = e.value;
             },
             addGroup(item,index){
                 this.selectgroups.push(item.name)
@@ -179,11 +179,18 @@
 .st-header{
     justify-content: center;
     margin-bottom: 20px;
+    margin-top: 50px;
 }
 .st-text-title{
     flex: 1;
     text-align: center;
     font-size: 50px;
+}
+
+.st-form-wrapper{
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 50px;
 }
 
 .st-form-row{
@@ -204,11 +211,12 @@
 
 .st-form-right{
     justify-content: flex-start;
+    flex:1;
 }
 
 .st-form-input{
     font-size: 30px;
-    width: 320px;
+    flex:1;
     margin-top: 5px;
     margin-bottom: 10px;
     margin-left: 30px;
@@ -226,14 +234,12 @@
 .st-btn-send{
     border-radius: 2px;
     height: 64px;
-    min-width: 128px;
+    width: 192px;
     border: none;
     margin-top: 20px;
     outline: 0;
     justify-content:center;
     align-items: center;  
-    background-color: #81D4FA;
-    color:#fff;
 }
 .st-list-item{
     margin-left: 10px;
@@ -252,5 +258,12 @@
 
 .st-selected{
     background-color: #69f0ae;
+}
+
+.st-switch-wrapper{
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 </style>
