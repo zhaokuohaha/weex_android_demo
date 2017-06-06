@@ -11,7 +11,7 @@
                 <text class="lg-text-primary">登录</text>
             </button>
         </div>
-        <div  v-else style="align-items:center;">
+        <div  v-else class="lg-center-wrapper">
             <text class="lg-text-title">{{userinfo.nickname}}</text>
             <text class="lg-text-title">{{userinfo.summary}}</text>
         </div>

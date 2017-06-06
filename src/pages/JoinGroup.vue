@@ -3,7 +3,7 @@
         <div class="jg-title-wrapper">
             <text class="jg-text-title">加入群</text>
         </div>
-        <div class="jg-form-wrappe">
+        <div class="jg-form-wrapper">
             <div class="jg-form-row">
                 <div class="jg-form-label">
                     <text class="text-label">群名称</text>
@@ -95,8 +95,11 @@
 
 <style>
     .jg-title-wrapper{
+        width:750px;
+        flex-direction: row;
         justify-content: center;
-        align-content: center;
+        margin-top:100px;
+        margin-bottom: 50px;
     }
     .jg-text-title{
         flex: 1;
@@ -105,25 +108,31 @@
     }
 
     .jg-form-wrapper{
+        margin-left: 50px;
+        margin-right: 50px;
         flex-direction: column;
         align-items: center;
     }
     .jg-form-row{
         flex-direction: row;
-    }
-    .jg-form-label{
-        flex: 1;
+        width:750px;
         justify-content: center;
     }
+    .jg-form-label{
+        width: 80px;
+        text-align: right;
+        align-items: center;
+        margin-top: 30px;
+        
+    }
     .jg-form-right{
-        flex: 3;
+        width:480px;
     }
     .jg-form-input{
         font-size: 30px;
-        width: 600px;
         margin-top: 5px;
         margin-bottom: 20px;
-        margin-left: 50px;
+        margin-left: 10px;
         padding-top: 20px;
         padding-bottom: 20px;
         padding-left: 20px;
