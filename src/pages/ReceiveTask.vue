@@ -4,8 +4,9 @@
         <div class="text-title-wrapper">
             <text class="text-title">接收通知</text>
         </div>
-        <list>
-            <cell v-for="(item,index) in tasks" :key="index" :class="[item.state?'task-readed':'task-unread','task-container']">
+        <scroller class="rt-scroller">
+            <div v-for="(item,index) in tasks" :key="index" 
+            :class="[item.state==true?'task-readed':'task-unread','task-container']">
                 <div class="task-header">
                     <div class="group-avatar">
                         <image style="width:100px; height:100px; border-radius:100px;" src="http://zhiliao-10068775.cos.myqcloud.com/group.png"></image>
@@ -28,8 +29,8 @@
                         </div>
                     </div>
                 </div>
-            </cell>
-        </list>
+            </div>
+        </scroller>
     </div>
 </template>
 
@@ -109,6 +110,15 @@
 </script>
 
 <style>
+
+.rt-scroller {
+    width: 700px;
+    height: 960px;
+    border-width: 0px;
+    border-style: solid;
+    border-color: rgb(162, 217, 192);
+    margin-left: 25px;
+  }
 .text-title-wrapper{
     justify-content: center;
     margin-bottom: 50px;
@@ -127,7 +137,18 @@
     padding-left: 10px;
     padding-right: 10px;
     overflow: visible;
+    margin-top: 1px;
+    margin-bottom: 1px;
 }
+
+.task-readed{
+    background-color: #e0f2f1;
+}
+
+.task-unread{
+    background-color: #ffebee;
+}
+
 .task-header{
     flex-direction: row;
     width: 720;
@@ -164,13 +185,5 @@
 
 .task-detail{
     font-size: 24px;
-}
-
-.task-readed{
-    background-color: #e0f2f1;
-}
-
-.task-unread{
-    background-color: #ffebee;
 }
 </style>

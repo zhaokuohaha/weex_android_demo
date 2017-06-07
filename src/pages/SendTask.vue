@@ -47,20 +47,21 @@
                             <text>{{group}}</text>
                         </div>
                     </div>
-                    <span class="st-list-item st-unselected" @click="addGroup(group,index)" v-for="(group,index) in mygroups" :key="index">
+                    <div class="st-list-item st-unselected" @click="addGroup(group,index)" v-for="(group,index) in mygroups" :key="index">
                         <text>{{group.name}}</text>
-                    </span>
+                    </div>
                 </div>
             </div>
             
             <div style="margin-top:10px;margin-left:-50px; margin-bottom:20px;width:650px;border-top-width:2px;border-top-color:#aaa;"></div>
             <div class="st-switch-wrapper">
                 <text>使用短信发送</text>
-                <switch @change="toggleSms"></switch>
+                <!--<switch style="height:60px;" @change="toggleSms"></switch>-->
+                <u-checkbox :value="task.issms" @change="toggleSms"></u-checkbox>
             </div>
-            <div class="st-switch-wrapper">
+            <div  class="st-switch-wrapper">
                 <text>使用邮件发送</text>
-                <switch @change="toggleEmail"></switch>
+                <u-checkbox :value="task.isemail" @change="toggleEmail"></u-checkbox>
             </div>
             <image src="http://zhiliao-10068775.cossh.myqcloud.com/send.png"
             style="width:128px; height:128px;"
@@ -92,6 +93,9 @@
                     group:[],
                 },
             }
+        },
+        components:{
+            'u-checkbox':require('../components/Checkbox.vue')
         },
         methods:{
             getToken(){
@@ -133,10 +137,18 @@
                 })
             },
             toggleSms(e){
-                this.task.issms = e.value;
+                this.task.issms = !this.task.issms;
+                modal.toast({
+                            message:'短信发送'+this.task.issms,
+                            duration:1
+                        });
             },
             toggleEmail(e){
-                this.task.isemail = e.value;
+                this.task.isemail = !this.task.isemail;
+                 modal.toast({
+                            message:'邮件发送'+this.task.isemail,
+                            duration:1
+                        });
             },
             addGroup(item,index){
                 this.selectgroups.push(item.name)
@@ -155,11 +167,13 @@
                     url:'http://zhiliao.server.zhaokuo.cc/api/Task/createtask',
                     body:JSON.stringify(tvm.task)
                 },function(res){
-                    if(res.ok == true){
+                    console.log(res);
+                    if(res&&res.data.res == 'true'){
                         modal.toast({
                             message:'通知发送成功, 您可以在web端管理已发送的通知',
                             duration:5
                         });
+                        tvm.$router.push('/');
                     }else{
                         modal.toast({
                             message:'通知发送失败, 请查看通知配置, 或联系管理员',
@@ -225,7 +239,7 @@
     padding-left: 10px;
     padding-right: 10px;
     color: #666666;
-    border-width: 2px;
+    border-width: 1px;
     border-style: solid;
     border-color: #008080;
     border-radius: 5px;
@@ -250,6 +264,9 @@
     padding-top: 10px;
     padding-right: 10px;
     padding-bottom: 10px;
+
+    flex-direction: row;
+    justify-content: flex-start;
     
 }
 .st-unselected{
@@ -265,5 +282,6 @@
     justify-content: space-between;
     margin-top: 10px;
     margin-bottom: 10px;
+    margin-right: 20px;
 }
 </style>
