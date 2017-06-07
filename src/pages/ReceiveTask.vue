@@ -6,7 +6,7 @@
         </div>
         <scroller class="rt-scroller">
             <div v-for="(item,index) in tasks" :key="index" 
-            :class="[item.state==true?'task-readed':'task-unread','task-container']">
+            :class="[taskState(item),'task-container']">
                 <div class="task-header">
                     <div class="group-avatar">
                         <image style="width:100px; height:100px; border-radius:100px;" src="http://zhiliao-10068775.cos.myqcloud.com/group.png"></image>
@@ -18,10 +18,10 @@
                 <div class="task-body">
                     <div style="flex:1"></div>
                     <div class="task-content">
-                        <text class="task-title">{{item.title}}</text>
-                        <text class="task-detail">时间: {{item.time}}</text>
-                        <text class="task-detail">地点: {{item.address}}</text>
-                        <text class="task-detail">备注: {{item.content}}</text>
+                        <text class="text-task-title">{{item.title}}</text>
+                        <text class="text-task-detail">时间: {{item.time}}</text>
+                        <text class="text-task-detail">地点: {{item.address}}</text>
+                        <text class="text-task-detail">备注: {{item.content}}</text>
                     </div>
                     <div class="task-option">
                         <div @click="setReaded(item.id)" v-if="!item.state">
@@ -48,7 +48,16 @@
                 tasks:[],
             }
         },
+        computed:{
+            
+        },
         methods:{
+            taskState:function(item){
+                if(item.state)
+                    return 'task-readed';
+                else
+                    return 'task-unread';
+            },
             getToken(){
                 let tvm = this;
                  storage.getItem('token',function(e){
@@ -131,14 +140,13 @@
 }
 .task-container{
     flex-direction: column;
-    background-color: #fff;
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 10px;
     padding-right: 10px;
     overflow: visible;
-    margin-top: 1px;
-    margin-bottom: 1px;
+    margin-top: 3px;
+    margin-bottom: 2px;
 }
 
 .task-readed{
@@ -165,10 +173,17 @@
 }
 .text-group-name{
     text-align: left;
+    font-size: 30px;
     line-height: 100px;
-    color: #bbb;
+    color: #888;
 }
-
+.text-task-title{
+    font-size:36px;
+    margin-bottom: 15px;
+}
+.text-task-detail{
+    color:#333;
+}
 .task-body{
     flex-direction: row;
     width: 720;

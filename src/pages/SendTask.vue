@@ -39,24 +39,21 @@
             </div>
             <div class="st-form-row">
                 <div class="st-form-label">
-                    <text class="text-label">群</text>
+                    <text class="text-label">群组</text>
                 </div>
                 <div class="st-form-right">
-                    <div class="st-form-input">
-                        <div class="st-list-item st-selected" v-for="(group,index) in selectgroups" :key="index">
-                            <text>{{group}}</text>
-                        </div>
-                    </div>
-                    <div class="st-list-item st-unselected" @click="addGroup(group,index)" v-for="(group,index) in mygroups" :key="index">
-                        <text>{{group.name}}</text>
-                    </div>
+                    <list style="height:160px">
+                        <cell class="st-group-cell" v-for="(group,index) in mygroups">
+                            <text>{{group.data.name}}</text>
+                            <u-checkbox style="margin-right:10px;" :value="group.value" @change="toggleSelectGroup(group)"></u-checkbox>
+                        </cell>
+                    </list>
                 </div>
             </div>
             
             <div style="margin-top:10px;margin-left:-50px; margin-bottom:20px;width:650px;border-top-width:2px;border-top-color:#aaa;"></div>
             <div class="st-switch-wrapper">
                 <text>使用短信发送</text>
-                <!--<switch style="height:60px;" @change="toggleSms"></switch>-->
                 <u-checkbox :value="task.issms" @change="toggleSms"></u-checkbox>
             </div>
             <div  class="st-switch-wrapper">
@@ -81,7 +78,6 @@
         data(){
             return{
                 mygroups:[],
-                selectgroups:[],
                 task:{
                     title:'',
                     date:'',
@@ -124,7 +120,10 @@
                         let gls = res.data.data
                         for(let i=0; i<gls.length; i++){
                             if(gls[i].ismine == true){
-                                tvm.mygroups.push(gls[i])
+                                tvm.mygroups.push({
+                                    data:gls[i],
+                                    value:false
+                                });
                             }
                         }
                     } 
@@ -139,24 +138,27 @@
             toggleSms(e){
                 this.task.issms = !this.task.issms;
                 modal.toast({
-                            message:'短信发送'+this.task.issms,
-                            duration:1
-                        });
+                    message:'短信发送'+this.task.issms,
+                    duration:1
+                });
             },
             toggleEmail(e){
                 this.task.isemail = !this.task.isemail;
                  modal.toast({
-                            message:'邮件发送'+this.task.isemail,
-                            duration:1
-                        });
+                    message:'邮件发送'+this.task.isemail,
+                    duration:1
+                });
             },
-            addGroup(item,index){
-                this.selectgroups.push(item.name)
-                this.task.group.push(item.groupid)
-                this.mygroups.splice(index,1);
+            toggleSelectGroup(group){
+                group.value = !group.value;
             },
             sendTask(){
                 let tvm = this;
+                for(let i=0; i<tvm.mygroups.length; i++){
+                    if(tvm.mygroups[i].value){
+                        tvm.task.group.push(tvm.mygroups[i].data.groupid);
+                    }
+                }
                 stream.fetch({
                     method:'POST',
                     headers :{
@@ -190,6 +192,12 @@
 </script>
 
 <style>
+.st-group-cell{
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 20px;
+}
+
 .st-header{
     justify-content: center;
     margin-bottom: 20px;
@@ -218,14 +226,14 @@
     margin-bottom: 10px;
 }
 
-.st-formlabel{
-    justify-content: flex-start;
-    align-items: center;
+.st-form-label{
+    justify-content:flex-end;
+    flex:1;
 }
 
 .st-form-right{
     justify-content: flex-start;
-    flex:1;
+    flex:4;
 }
 
 .st-form-input{
