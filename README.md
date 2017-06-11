@@ -1,36 +1,28 @@
-# weex-vue-starter-kit
+# 知了WEEX端
 
-> 吐槽：复制粘贴了一波 weex-toolkit 的配置
-
-## 概述
-
-weexpack：方便生成 Native，启动模拟器进行效果预览，但没有对应 debug 指令，默认为 .we。
-
-weex-toolkit: 方便 debug，官方手册指定方法，默认生成 Vue，但没有办法生成 Native 安装包。
-
-```bash
-yarn # 也可以使用npm install
-
-# run ios
-weexpack platform add ios
-weexpack run ios
-
-# dev
-npm run dev
-open http://0.0.0.0:8005/
-```
-
-## 显示二维码
-```bash
-open http://0.0.0.0:8005/qrcode.html
-```
+> fork自 [weex-vue-starter-kit](https://github.com/ElemeFE/weex-vue-starter-kit)
 
 ## 使用说明
 
-可以使用所有的 `weex-pack` 和 `weex` 相关命令，可见：
+### 开发
+1. `npm install`
+2. `npm run dev`
+3. 浏览器打开 `localhost:8005`
 
-- [weex-pack](https://github.com/weexteam/weex-pack)
-- [weex-toolkit](https://github.com/weexteam/weex-toolkit)
+### 调试
+1. `weex debug` , 浏览器自动打开调试页面, **假设此时url为: 192.168.8.8:8088**
+2. 使用weex playground 扫描二维码, 扫描成功后浏览器出现手机屏幕
+3. 浏览器打开`192.168.8.8:8005`, 将此路径转为二维码, 用playground继续扫描即可进行调试
+
+### 编译成apk
+1. `weex platform add android`
+2. `weex build android`  编译成功后apk文件会放在 `/platform/android/app/build/outputs/apk`目录下
+3. 也可以把手机插到电脑, 打开调试模式后执行`weex run android`将APP直接安装到手机上
+
+**注意: APP与playground包名相同所以安装的时候会有冲突, 所以在安装之前要先删掉, 目前还没有解决这个问题, 对安卓不是很懂**\
+
+### 编译IOS
+没弄过
 
 ## 目录结构
 
